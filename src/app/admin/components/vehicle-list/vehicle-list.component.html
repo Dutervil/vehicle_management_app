@@ -7,13 +7,9 @@
       </div>
     </div>
 
-    <div *ngIf="!isLoading && vehicles.length === 0" class="text-center mt-4">
-      Aucun Vehicule,<br/>
-      <button class="btn btn-primary" (click)="addNewVehicle()">Ajouter un nouveau Vehicule</button>
-    </div>
-
+    
     <div class="table-container" *ngIf="!isLoading">
-     <div class="d-flex justify-content-between align-items-center">
+     <div class="d-flex justify-content-between align-items-center" >
       <div>
         <mat-form-field appearance="fill">
           <mat-label>Rechercher</mat-label>
