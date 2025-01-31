@@ -1,0 +1,105 @@
+<div class="container p-5">
+   <div class="card p-">
+     <div class="header">
+       <div class="card-title  ">
+         <h6 class="text-body">✅ Veuillez remplir ce formulaire pour enregistrer un nouveau véhicule.</h6>
+       </div>
+     </div>
+     <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()" class="m-3">
+      <div class="d-flex justify-content-between gap-2">
+        <mat-form-field appearance="outline" class="w-100" >
+          <mat-label>ZL Code</mat-label>
+          <input matInput formControlName="zlCode" />
+          <mat-error *ngIf="vehicleForm.get('zlCode')?.invalid && vehicleForm.get('zlCode')?.touched">
+            Code ZL non valide
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Site</mat-label>
+          <input matInput formControlName="site" />
+          <mat-error *ngIf="vehicleForm.get('site')?.invalid && vehicleForm.get('site')?.touched">
+            Le site est requis
+          </mat-error>
+        </mat-form-field>
+      </div>
+       <div class="d-flex justify-content-between gap-2">
+       <mat-form-field appearance="outline" class="w-100" >
+         <mat-label>Proprietaire</mat-label>
+         <input matInput formControlName="owner" />
+         <mat-error *ngIf="vehicleForm.get('owner')?.invalid && vehicleForm.get('owner')?.touched">
+           Le propriétaire est requis
+         </mat-error>
+       </mat-form-field>
+
+       <mat-form-field appearance="outline" class="w-100" >
+         <mat-label>Categorie</mat-label>
+         <input matInput formControlName="category" />
+         <mat-error *ngIf="vehicleForm.get('category')?.invalid && vehicleForm.get('category')?.touched">
+           La catégorie est requise
+         </mat-error>
+       </mat-form-field>
+       </div>
+       <div class="d-flex justify-content-between gap-2">
+
+       <mat-form-field appearance="outline" class="w-100" >
+         <mat-label>Plaque</mat-label>
+         <input matInput formControlName="plate" />
+         <mat-error *ngIf="vehicleForm.get('plate')?.invalid && vehicleForm.get('plate')?.touched">
+           Format de plaque non valide
+         </mat-error>
+       </mat-form-field>
+
+       <mat-form-field appearance="outline" class="w-100" >
+         <mat-label>Type</mat-label>
+         <input matInput formControlName="type" />
+         <mat-error *ngIf="vehicleForm.get('type')?.invalid && vehicleForm.get('type')?.touched">
+           Le type est requis
+         </mat-error>
+       </mat-form-field>
+       </div>
+       <div class="d-flex justify-content-between gap-2">
+       <mat-form-field appearance="outline" class="w-100" >
+         <mat-label>Marque</mat-label>
+         <input matInput formControlName="brand" />
+         <mat-error *ngIf="vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')?.touched">
+           La marque est requise
+         </mat-error>
+       </mat-form-field>
+
+       <mat-form-field appearance="outline" class="w-100" >
+         <mat-label>Modele</mat-label>
+         <input matInput formControlName="model" />
+         <mat-error *ngIf="vehicleForm.get('model')?.invalid && vehicleForm.get('model')?.touched">
+           Le modèle est requis
+         </mat-error>
+       </mat-form-field>
+       </div>
+       <div class="d-flex justify-content-between gap-2">
+       <mat-form-field appearance="outline" class="w-100" >
+         <mat-label>Année</mat-label>
+         <input matInput type="number" formControlName="year" />
+         <mat-error *ngIf="vehicleForm.get('year')?.invalid && vehicleForm.get('year')?.touched">
+           Année invalide
+         </mat-error>
+       </mat-form-field>
+
+       <mat-form-field appearance="outline" class="w-100" >
+         <mat-label>Année de sa première utilisation</mat-label>
+         <input matInput type="number" formControlName="firstUseYear" />
+         <mat-error *ngIf="vehicleForm.get('firstUseYear')?.invalid && vehicleForm.get('firstUseYear')?.touched">
+           Année de première utilisation invalide
+         </mat-error>
+       </mat-form-field>
+       </div>
+
+
+
+       <button class="mb-4" mat-raised-button color="primary" type="submit" [disabled]="vehicleForm.invalid || isLoading">
+         <mat-progress-spinner *ngIf="isLoading" diameter="20"></mat-progress-spinner>
+         <span *ngIf="!isLoading">Sauvegarder</span>
+       </button>
+     </form>
+
+   </div>
+</div>

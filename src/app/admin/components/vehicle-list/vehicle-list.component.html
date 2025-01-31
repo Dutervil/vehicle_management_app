@@ -1,0 +1,102 @@
+<div class="card">
+  <div class="card-body">
+
+    <div *ngIf="isLoading" class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading && vehicles.length === 0" class="text-center mt-4">
+      Aucun Vehicule,<br/>
+      <button class="btn btn-primary" (click)="addNewVehicle()">Ajouter un nouveau Vehicule</button>
+    </div>
+
+    <div class="table-container" *ngIf="!isLoading">
+     <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Rechercher</mat-label>
+          <input matInput (keyup)="applyFilter($event)" >
+        </mat-form-field>
+      </div>
+       <div>
+         <button (click)="addNewVehicle()" style="background-color: #2a3746; color: white"     mat-raised-button> Creer Nouveau Vehicule</button>
+       </div>
+     </div>
+
+      <table mat-table [dataSource]="filteredVehicles">
+        <ng-container matColumnDef="zlCode">
+          <th mat-header-cell *matHeaderCellDef> ZL Code </th>
+          <td mat-cell *matCellDef="let vehicle"> {{ vehicle.zlCode }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="site">
+          <th mat-header-cell *matHeaderCellDef> Site </th>
+          <td mat-cell *matCellDef="let vehicle"> {{ vehicle.site }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="owner">
+          <th mat-header-cell *matHeaderCellDef> Proprietaire </th>
+          <td mat-cell *matCellDef="let vehicle"> {{ vehicle.owner }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef> Catégorie </th>
+          <td mat-cell *matCellDef="let vehicle"> {{ vehicle.category }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="plate">
+          <th mat-header-cell *matHeaderCellDef> Plaque </th>
+          <td mat-cell *matCellDef="let vehicle"> {{ vehicle.plate }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="brand">
+          <th mat-header-cell *matHeaderCellDef> Marque </th>
+          <td mat-cell *matCellDef="let vehicle"> {{ vehicle.brand }} </td>
+        </ng-container>
+        <ng-container matColumnDef="model">
+          <th mat-header-cell *matHeaderCellDef> Année </th>
+          <td mat-cell *matCellDef="let vehicle"> {{ vehicle.model }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="year">
+          <th mat-header-cell *matHeaderCellDef> Année de sa première utilisation
+          </th>
+          <td mat-cell *matCellDef="let vehicle"> {{ vehicle.year }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="firstUseYear">
+          <th mat-header-cell *matHeaderCellDef> Modele </th>
+          <td mat-cell *matCellDef="let vehicle"> {{ vehicle.firstUseYear }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let vehicle">
+            <button mat-raised-button  (click)="viewVehicle(vehicle)">
+              <i class="bi bi-eye-fill"></i>
+            </button>
+            <button mat-raised-button  (click)="editVehicle(vehicle)">
+              <i class="bi bi-pencil-fill"></i>
+            </button>
+            <button mat-raised-button  (click)="deleteVehicle(vehicle)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [length]="vehicles.length"
+                     [pageSize]="pageSize"
+                     [pageSizeOptions]="[5, 10, 25]"
+                     (page)="onPageChanged($event)">
+      </mat-paginator>
+    </div>
+
+
+  </div>
+</div>

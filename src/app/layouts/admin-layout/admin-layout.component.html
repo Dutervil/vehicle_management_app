@@ -1,0 +1,69 @@
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <div class="sidebar" [class.show]="isSidebarOpen" [class.collapsed]="isSidebarCollapsed">
+    <div class="sidebar-header p-3">
+      <div class="d-flex align-items-center">
+
+        <i class="bi bi-bus-front fs-4 me-2"></i>
+        <span class="fs-5 fw-semibold">VMS </span>
+      </div>
+    </div>
+
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="currentPage === 'Dashboard'" href="#" (click)="setActivePage('dashboard')">
+          <i class="bi bi-grid me-2"></i>
+          <span>Tableau de Bord</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="currentPage === 'vehicle'" routerLink="vehicle/list"
+           (click)="setActivePage('vehicle')">
+          <i class="bi bi-car-front  me-2"></i>
+          <span>Gestion Vehicule</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="currentPage === 'vehicle/report'" routerLink="vehicle/report'" (click)="setActivePage('vehicle/report\'')">
+          <i class="bi bi-receipt-cutoff me-2"></i>
+          <span>Gestion Rapport</span>
+        </a>
+      </li>
+
+
+      <li class="nav-item mt-auto">
+        <button class="btn btn-primary " (click)="logout()">
+          <i class="bi bi-box-arrow-left me-2"></i>
+          <span>Logout</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content" [class.sidebar-collapsed]="isSidebarCollapsed">
+    <!-- Top Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3">
+      <button class="btn sidebar-toggle d-lg-none" type="button" (click)="toggleSidebar()">
+        <i class="bi bi-list"></i>
+      </button>
+      <button class="btn sidebar-toggle d-none d-lg-block" type="button" (click)="toggleSidebarCollapse()">
+        <i class="bi" [class.bi-list]="isSidebarCollapsed" [class.bi-list-nested]="!isSidebarCollapsed"></i>
+      </button>
+
+      <div class="ms-auto d-flex align-items-center">
+        <div class="year-badge me-3">
+          <span class="badge bg-dark">Salut</span>
+        </div>
+        <button class="btn btn-outline-secondary btn-sm me-3">
+          {{username}}, Vous etes {{authService.getUserData()?.role}}
+        </button>
+      </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content p-4">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
