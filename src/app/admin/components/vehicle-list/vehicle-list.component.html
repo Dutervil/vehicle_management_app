@@ -1,25 +1,23 @@
 <div class="card">
   <div class="card-body">
-
     <div *ngIf="isLoading" class="text-center">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-
-    
+  <ng-container *ngIf="vehicles.length > 0">
     <div class="table-container" *ngIf="!isLoading">
-     <div class="d-flex justify-content-between align-items-center" >
-      <div>
-        <mat-form-field appearance="fill">
-          <mat-label>Rechercher</mat-label>
-          <input matInput (keyup)="applyFilter($event)" >
-        </mat-form-field>
+      <div class="d-flex justify-content-between align-items-center" >
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Rechercher</mat-label>
+            <input matInput (keyup)="applyFilter($event)" >
+          </mat-form-field>
+        </div>
+        <div>
+          <button (click)="addNewVehicle()" style="background-color: #2a3746; color: white"     mat-raised-button> Creer Nouveau Vehicule</button>
+        </div>
       </div>
-       <div>
-         <button (click)="addNewVehicle()" style="background-color: #2a3746; color: white"     mat-raised-button> Creer Nouveau Vehicule</button>
-       </div>
-     </div>
 
       <table mat-table [dataSource]="filteredVehicles">
         <ng-container matColumnDef="zlCode">
@@ -70,9 +68,7 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> Actions </th>
           <td mat-cell *matCellDef="let vehicle">
-            <button mat-raised-button  (click)="viewVehicle(vehicle)">
-              <i class="bi bi-eye-fill"></i>
-            </button>
+
             <button mat-raised-button  (click)="editVehicle(vehicle)">
               <i class="bi bi-pencil-fill"></i>
             </button>
@@ -92,7 +88,12 @@
                      (page)="onPageChanged($event)">
       </mat-paginator>
     </div>
+  </ng-container>
 
-
+<ng-container *ngIf="vehicles.length ==0 && !isLoading">
+  <div class="d-flex justify-content-center align-items-center">
+     <h2 class="text-body">Erreur lors du chargement des donnees</h2>
+  </div>
+</ng-container>
   </div>
 </div>

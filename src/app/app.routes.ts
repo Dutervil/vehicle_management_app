@@ -7,6 +7,9 @@ import {AdminDashboardComponent} from "./admin/components/admin-dashboard/admin-
 import {AuthGuard} from "./auth/guard/auth.guard";
 import {VehicleListComponent} from "./admin/components/vehicle-list/vehicle-list.component";
 import {VehicleCreateComponent} from "./admin/components/vehicle-create/vehicle-create.component";
+import {
+  ConsumptionReportListComponent
+} from "./admin/components/consumption-report-list/consumption-report-list.component";
  export const routes: Routes = [
   {
     path: 'admin',
@@ -17,6 +20,7 @@ import {VehicleCreateComponent} from "./admin/components/vehicle-create/vehicle-
       { path: 'overview', component: AdminDashboardComponent },
       {path:'vehicle/list',component:VehicleListComponent},
       {path:'vehicle/add',component:VehicleCreateComponent},
+      {path:'vehicle/report',component:ConsumptionReportListComponent},
     ],
   },
 

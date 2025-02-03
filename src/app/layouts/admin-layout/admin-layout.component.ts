@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import {Component, ElementRef, inject, ViewChild} from '@angular/core';
-import {Router, RouterLink, RouterOutlet} from '@angular/router';
+import {NavigationEnd, Router, RouterLink, RouterOutlet} from '@angular/router';
 import {Chart} from "chart.js";
 import {AuthService} from "../../auth/services/auth.service";
+import {filter} from "rxjs";
 
 @Component({
      standalone:true,
@@ -17,20 +18,15 @@ export class AdminLayoutComponent {
   isSidebarOpen = true;
   isSidebarCollapsed = false;
   username:string='';
-  currentPage = 'Dashboard';
+  currentPage:string = '';
   authService= inject(AuthService);
     router= inject(Router)
   constructor() {
-    document.addEventListener('click', (event) => {
-      const target = event.target as HTMLElement;
-      if (window.innerWidth < 992 &&
-        !target.closest('.sidebar') &&
-        !target.closest('.sidebar-toggle') &&
-        this.isSidebarOpen) {
-        this.isSidebarOpen = false;
-      }
-    });
 
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
+      this.currentPage = event.urlAfterRedirects; // Get the current URL
+      console.log('Current Route:', this.currentPage);
+    });
     this.username=this.authService.getUserData()?.username;
   }
   toggleSidebar() {
@@ -41,15 +37,13 @@ export class AdminLayoutComponent {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 
-  setActivePage(page: string) {
-    this.currentPage = page.charAt(0).toUpperCase() + page.slice(1);
-    if (window.innerWidth < 992) {
-      this.isSidebarOpen = false;
-    }
-  }
 
   logout() {
     this.authService.logout();
     this.router.navigate(['/login'])
+  }
+
+  isActive(route: string): boolean {
+    return this.currentPage.includes(route);
   }
 }

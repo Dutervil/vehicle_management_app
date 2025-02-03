@@ -198,3 +198,8 @@ canvas {
     transform: translateY(0);
   }
 }
+.nav-link.active {
+  background-color: #007bff;
+  color: white !important;
+  font-weight: bold;
+}

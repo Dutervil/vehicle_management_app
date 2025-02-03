@@ -1,0 +1,23 @@
+.row-layout-1 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.row-layout-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.row-layout-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .row-layout-2, .row-layout-3 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

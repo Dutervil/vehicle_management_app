@@ -11,20 +11,19 @@
 
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a class="nav-link" [class.active]="currentPage === 'Dashboard'" href="#" (click)="setActivePage('dashboard')">
+        <a class="nav-link" [class.active]="isActive('/overview')" href="#"  >
           <i class="bi bi-grid me-2"></i>
           <span>Tableau de Bord</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [class.active]="currentPage === 'vehicle/list'" routerLink="vehicle/list"
-           (click)="setActivePage('vehicle/list')">
+        <a class="nav-link" [class.active]="isActive('/vehicle/list')" routerLink="vehicle/list">
           <i class="bi bi-car-front  me-2"></i>
           <span>Gestion Vehicule</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [class.active]="currentPage === 'vehicle/report'" routerLink="vehicle/report'" (click)="setActivePage('vehicle/report\'')">
+        <a class="nav-link"[class.active]="isActive('/vehicle/report')" routerLink="vehicle/report">
           <i class="bi bi-receipt-cutoff me-2"></i>
           <span>Gestion Rapport</span>
         </a>

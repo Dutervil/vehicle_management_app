@@ -2,7 +2,7 @@
    <div class="card p-">
      <div class="header">
        <div class="card-title  ">
-         <h6 class="text-body">✅ Veuillez remplir ce formulaire pour enregistrer un nouveau véhicule.</h6>
+         <h6 class="text-body">{{title}}</h6>
        </div>
      </div>
      <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()" class="m-3">
@@ -95,10 +95,11 @@
 
 
 
-       <button class="mb-4" mat-raised-button color="primary" type="submit" [disabled]="vehicleForm.invalid || isLoading">
+       <button class="mb-4 mx-1" mat-raised-button color="primary" type="submit" [disabled]="vehicleForm.invalid || isLoading">
          <mat-progress-spinner *ngIf="isLoading" diameter="20"></mat-progress-spinner>
          <span *ngIf="!isLoading">Sauvegarder</span>
        </button>
+       <button type="button" (click)="closepopup()"  class="mb-4" mat-raised-button color="accent">Close</button>
      </form>
 
    </div>
