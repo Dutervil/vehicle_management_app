@@ -22,7 +22,21 @@ export class VehicleService {
     return this.http.get<ApiResponse<Vehicle[]>>(`${this.apiUrl}/vehicles`);
   }
 
+  getVehicle(id:string): Observable<ApiResponse<Vehicle>> {
+
+    return this.http.get<ApiResponse<Vehicle>>(`${this.apiUrl}/vehicles/${id}`);
+  }
+
+ deleteVehicle(id:string): Observable<ApiResponse<void>> {
+
+    return this.http.delete<ApiResponse<void>>(`${this.apiUrl}/vehicles/${id}`);
+  }
+
   createVehicle(data  :any):Observable<ApiResponse<Vehicle>> {
     return this.http.post<ApiResponse<Vehicle>>(`${this.apiUrl}/vehicles`,data);
+  }
+
+  updateVehicle(data  :any,id:string):Observable<ApiResponse<Vehicle>> {
+    return this.http.put<ApiResponse<Vehicle>>(`${this.apiUrl}/vehicles/${id}`,data);
   }
 }
