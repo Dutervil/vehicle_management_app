@@ -1,10 +1,92 @@
+<div *ngIf="isLoading" class="loading-container">
+  <mat-spinner></mat-spinner>
+</div>
+
+
+<div *ngIf="!isLoading && !hasData" class="empty-state">
+  <p>Aucun rapport disponible.</p>
+  <button mat-raised-button color="primary" (click)="openForm()">Nouveau Rapport</button>
+</div>
+
+
 <div class="card">
-  <div class="card-body">
+  <div class="card-body mt-4">
+    <ng-container *ngIf="!isLoading && hasData ">
+      <div class="table-container" *ngIf="!isLoading">
+        <div class="d-flex justify-content-between align-items-center" >
+          <div>
+            <mat-form-field appearance="fill">
+              <mat-label>Rechercher</mat-label>
+              <input matInput (keyup)="applyFilter($event)" >
+            </mat-form-field>
+          </div>
+          <div>
+            <button (click)="openForm()" style="background-color: #2a3746; color: white"     mat-raised-button> Nouveau Rapport</button>
+          </div>
+        </div>
 
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <button mat-raised-button color="primary" (click)="openForm()">Nouveau Rapport</button>
+          <!-- Plaque -->
+          <ng-container matColumnDef="plate">
+            <th mat-header-cell *matHeaderCellDef> Plaque</th>
+            <td mat-cell *matCellDef="let element"> {{ element.vehicle.plate }}</td>
+          </ng-container>
 
+          <!-- Marque -->
+          <ng-container matColumnDef="brand">
+            <th mat-header-cell *matHeaderCellDef> Marque</th>
+            <td mat-cell *matCellDef="let element"> {{ element.vehicle.brand }}</td>
+          </ng-container>
 
+          <!-- Modèle -->
+          <ng-container matColumnDef="model">
+            <th mat-header-cell *matHeaderCellDef> Modèle</th>
+            <td mat-cell *matCellDef="let element"> {{ element.vehicle.model }}</td>
+          </ng-container>
 
+          <!-- Kilométrage Total -->
+          <ng-container matColumnDef="totalKm">
+            <th mat-header-cell *matHeaderCellDef> Km Total</th>
+            <td mat-cell *matCellDef="let element"> {{ element.totalKm }} km</td>
+          </ng-container>
+
+          <!-- Type de Carburant -->
+          <ng-container matColumnDef="fuelType">
+            <th mat-header-cell *matHeaderCellDef> Carburant</th>
+            <td mat-cell *matCellDef="let element"> {{ element.fuelType }}</td>
+          </ng-container>
+
+          <!-- Coût total du carburant -->
+          <ng-container matColumnDef="totalFuelCost">
+            <th mat-header-cell *matHeaderCellDef> Coût Carburant</th>
+            <td mat-cell *matCellDef="let element"> {{ element.totalFuelCost }} </td>
+          </ng-container>
+
+          <!-- Coût par km -->
+          <ng-container matColumnDef="costPerKm">
+            <th mat-header-cell *matHeaderCellDef> Coût/Km</th>
+            <td mat-cell *matCellDef="let element"> {{ element.costPerKm }} </td>
+          </ng-container>
+
+          <!-- Date du Rapport -->
+          <ng-container matColumnDef="reportDate">
+            <th mat-header-cell *matHeaderCellDef> Date Rapport</th>
+            <td mat-cell *matCellDef="let element"> {{ element.reportDate | date:'yyyy-MM-dd' }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+    </ng-container>
+
+    <ng-container  *ngIf="!hasData ">
+      <div class="d-flex justify-content-center align-items-center">
+        <h2 class="text-body">Erreur lors du chargement des donnees</h2>
+      </div>
+    </ng-container>
   </div>
 </div>

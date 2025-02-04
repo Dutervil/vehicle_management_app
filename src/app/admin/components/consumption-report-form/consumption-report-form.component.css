@@ -21,3 +21,7 @@
     grid-template-columns: repeat(1, 1fr);
   }
 }
+button.example-custom-date-class {
+  background: orange;
+  border-radius: 100%;
+}

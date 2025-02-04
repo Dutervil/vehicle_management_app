@@ -56,21 +56,28 @@
           </mat-form-field>
         </div>
         <div class="col-md-4">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Total KM</mat-label>
-            <input matInput type="number" formControlName="totalKm" />
-          </mat-form-field>
+          <div *ngIf="!isShow">
+            <mat-form-field appearance="outline" class="w-100" >
+              <mat-label>Total KM</mat-label>
+              <input matInput type="number" formControlName="totalKm" style="color: #cacacf; font-weight: bold; font-size: 30px"  />
+            </mat-form-field>
+          </div>
+
         </div>
       </div>
 
       <!-- Second Row -->
       <div class="row">
-
         <div class="col-md-4">
-          <mat-form-field appearance="outline" class="w-100">
+
+          <mat-form-field>
             <mat-label>Type de Carburant</mat-label>
-            <input matInput formControlName="fuelType" />
+            <mat-select formControlName="fuelType">
+              <mat-option value="Diesel">Diesel</mat-option>
+              <mat-option value="Gasoline">Gasoline</mat-option>
+            </mat-select>
           </mat-form-field>
+
         </div>
         <div class="col-md-4">
           <mat-form-field appearance="outline" class="w-100">
@@ -92,19 +99,19 @@
         <div class="col-md-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Coût Total Carburant</mat-label>
-            <input matInput type="number" formControlName="totalFuelCost" [disabled]="true" />
+            <input matInput   formControlName="totalFuelCost"   style="color: #cacacf; font-weight: bold; font-size: 30px"  />
           </mat-form-field>
         </div>
         <div class="col-md-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Consommation/100KM</mat-label>
-            <input matInput type="number" formControlName="consumptionPer100Km" />
+            <input matInput   formControlName="consumptionPer100Km" style="color: #cacacf; font-weight: bold; font-size: 30px" />
           </mat-form-field>
         </div>
         <div class="col-md-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Coût par/Km </mat-label>
-            <input matInput type="number" formControlName="costPerKm" />
+            <input matInput   formControlName="costPerKm" style="color: #cacacf; font-weight: bold; font-size: 30px" />
           </mat-form-field>
         </div>
       </div>
@@ -114,19 +121,19 @@
         <div class="col-md-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Coût Total</mat-label>
-            <input matInput type="number" formControlName="totalCost" />
+            <input matInput   formControlName="totalCost" style="color: #cacacf; font-weight: bold; font-size: 30px" />
           </mat-form-field>
         </div>
         <div class="col-md-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Coût de Location</mat-label>
-            <input matInput type="number" formControlName="rentalCost" />
+            <input matInput type="number" formControlName="rentalCost"  />
           </mat-form-field>
         </div>
         <div class="col-md-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Coût de maintenance</mat-label>
-            <input matInput formControlName="maintenanceCost" />
+            <input matInput type="number" formControlName="maintenanceCost" />
           </mat-form-field>
         </div>
       </div>
@@ -150,7 +157,7 @@
         <div class="col-md-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Cout Estimatif en HTG</mat-label>
-            <input matInput type="number" formControlName="estimatedCostHTG" />
+            <input matInput type="number" formControlName="estimatedCostHTG" style="color: #cacacf; font-weight: bold; font-size: 30px" />
           </mat-form-field>
         </div>
       </div>
@@ -161,19 +168,27 @@
         <div class="col-md-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Cout Estimatif en USD</mat-label>
-            <input matInput type="number" formControlName="estimatedCostUSD" />
+            <input matInput  formControlName="estimatedCostUSD" style="color: #cacacf; font-weight: bold; font-size: 30px" />
           </mat-form-field>
         </div>
         <div class="col-md-4">
-          <mat-form-field appearance="outline" class="w-100">
+
+          <mat-form-field>
             <mat-label>Monnaie</mat-label>
-            <input matInput type="text" formControlName="currency" />
+            <mat-select formControlName="currency">
+              <mat-option value="HTG">HTG</mat-option>
+              <mat-option value="USA">USD</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
         <div class="col-md-4">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Date de rapport</mat-label>
-            <input matInput type="date" formControlName="reportDate" />
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Date de Rapport</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="reportDate">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </div>
       </div>
