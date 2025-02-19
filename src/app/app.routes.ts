@@ -10,6 +10,9 @@ import {VehicleCreateComponent} from "./admin/components/vehicle-create/vehicle-
 import {
   ConsumptionReportListComponent
 } from "./admin/components/consumption-report-list/consumption-report-list.component";
+import {SettingComponent} from "./admin/components/setting/setting.component";
+import {UserComponent} from "./admin/components/user/user.component";
+import {VehicleViewComponent} from "./admin/components/vehicle-view/vehicle-view.component";
  export const routes: Routes = [
   {
     path: 'admin',
@@ -21,6 +24,9 @@ import {
       {path:'vehicle/list',component:VehicleListComponent},
       {path:'vehicle/add',component:VehicleCreateComponent},
       {path:'vehicle/report',component:ConsumptionReportListComponent},
+      { path: 'vehicle/view/:id', component: VehicleViewComponent },
+      {path:'setting',component:SettingComponent},
+      {path:'user',component:UserComponent},
     ],
   },
 

@@ -1,0 +1,68 @@
+<div class="container p-5">
+  <div class="card p-">
+    <div class="header">
+      <div class="card-title  ">
+        <h6 class="text-body">{{title}}</h6>
+      </div>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="m-3">
+      <div class="d-flex justify-content-between gap-2">
+        <mat-form-field appearance="outline" class="w-100" >
+          <mat-label>Nom Utilisateur</mat-label>
+          <input matInput formControlName="username" />
+          <mat-error *ngIf="form.get('username')?.invalid && form.get('username')?.touched">
+           Ce champs est requis
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Adresse Electronique</mat-label>
+          <input matInput formControlName="email" />
+          <mat-error *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+            Ce champs est requis
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="d-flex justify-content-between gap-2">
+
+        <mat-form-field class="w-100">
+          <mat-label>Role</mat-label>
+          <mat-select formControlName="role">
+            <mat-option value="ADMIN">ADMIN</mat-option>
+            <mat-option value="REPORTER">REPORTER</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field class="w-100">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+            <mat-option value="ACTIVE">ACTIVE</mat-option>
+            <mat-option value="INACTIVE">INACTIVE</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="d-flex justify-content-between gap-2">
+
+        <mat-form-field appearance="outline" class="w-100" >
+          <mat-label>Mot de passe</mat-label>
+          <input matInput formControlName="password"  type="password"/>
+          <mat-error *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+            Format de plaque non valide
+          </mat-error>
+        </mat-form-field>
+
+
+      </div>
+
+
+
+      <button class="mb-4 mx-1" mat-raised-button color="primary" type="submit" [disabled]="form.invalid || isLoading">
+        <mat-progress-spinner *ngIf="isLoading" diameter="20"></mat-progress-spinner>
+        <span *ngIf="!isLoading">Sauvegarder</span>
+      </button>
+      <button type="button" (click)="closepopup()"  class="mb-4" mat-raised-button color="accent">Close</button>
+    </form>
+
+  </div>
+</div>

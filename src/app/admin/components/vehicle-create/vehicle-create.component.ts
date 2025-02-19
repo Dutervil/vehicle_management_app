@@ -78,7 +78,7 @@ export class VehicleCreateComponent implements OnInit {
         {
           next: (response) => {
             this.vehicle = response.data;
-            this.toastService.success(response.message)
+
             if (this.vehicle != null) {
               this.vehicleForm.setValue({
                 zlCode: this.vehicle.zlCode,
@@ -92,7 +92,7 @@ export class VehicleCreateComponent implements OnInit {
                 year: this.vehicle.year,
                 firstUseYear: this.vehicle.firstUseYear,
               });
-              this.toastService.success(response.message);
+
 
             }
           },

@@ -27,7 +27,16 @@ export class VehicleService {
     return this.http.get<ApiResponse<Vehicle>>(`${this.apiUrl}/vehicles/${id}`);
   }
 
- deleteVehicle(id:string): Observable<ApiResponse<void>> {
+  getVehicleReports(id:string,startDate: string, endDate: string): Observable<ApiResponse<Vehicle>> {
+    const body = {
+      startDate: startDate,  // Start date as string in ISO 8601 format
+      endDate: endDate       // End date as string in ISO 8601 format
+    };
+    return this.http.post<ApiResponse<Vehicle>>(`${this.apiUrl}/vehicles/${id}/range`,body);
+  }
+
+
+  deleteVehicle(id:string): Observable<ApiResponse<void>> {
 
     return this.http.delete<ApiResponse<void>>(`${this.apiUrl}/vehicles/${id}`);
   }

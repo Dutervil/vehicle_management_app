@@ -1,68 +1,49 @@
-<div class="dashboard-container">
-  <!-- Sidebar -->
-  <div class="sidebar" [class.show]="isSidebarOpen" [class.collapsed]="isSidebarCollapsed">
-    <div class="sidebar-header p-3">
-      <div class="d-flex align-items-center">
-
-        <i class="bi bi-bus-front fs-4 me-2"></i>
-        <span class="fs-5 fw-semibold">VMS </span>
-      </div>
-    </div>
-
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a class="nav-link" [class.active]="isActive('/overview')" href="#"  >
-          <i class="bi bi-grid me-2"></i>
-          <span>Tableau de Bord</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [class.active]="isActive('/vehicle/list')" routerLink="vehicle/list">
-          <i class="bi bi-car-front  me-2"></i>
-          <span>Gestion Vehicule</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link"[class.active]="isActive('/vehicle/report')" routerLink="vehicle/report">
-          <i class="bi bi-receipt-cutoff me-2"></i>
-          <span>Gestion Rapport</span>
-        </a>
-      </li>
-
-
-      <li class="nav-item mt-auto">
-        <button class="btn btn-primary " (click)="logout()">
-          <i class="bi bi-box-arrow-left me-2"></i>
-          <span>Logout</span>
-        </button>
-      </li>
-    </ul>
+<div class="sidebar">
+  <div class="profile-section">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8NkYb4LmdKwBpA57ZVCWkjdfHeCqm-i0ZrCDxyd_9xG-dunHiGbsR2RqIFtZ_mtMdk2I&usqp=CAU" alt="Profile" class="profile-image">
+    <h5 class="mb-1">Gestion de Vehicule</h5>
+    <p class="text-muted small text-white-50">Et de Rapportage</p>
   </div>
 
-  <!-- Main Content -->
-  <div class="main-content" [class.sidebar-collapsed]="isSidebarCollapsed">
-    <!-- Top Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3">
-      <button class="btn sidebar-toggle d-lg-none" type="button" (click)="toggleSidebar()">
-        <i class="bi bi-list"></i>
-      </button>
-      <button class="btn sidebar-toggle d-none d-lg-block" type="button" (click)="toggleSidebarCollapse()">
-        <i class="bi" [class.bi-list]="isSidebarCollapsed" [class.bi-list-nested]="!isSidebarCollapsed"></i>
-      </button>
+  <nav class="mt-4">
+    <a *ngIf="role=='ADMIN'" routerLink="/admin/overview" routerLinkActive="active" class="nav-link">
+      <i class="fas fa-chart-line"></i> Tableau de Bord
+    </a>
+    <a *ngIf="role=='ADMIN'" routerLink="/admin/vehicle/list" routerLinkActive="active" class="nav-link">
+      <i class="fas fa-car"></i> Gestion Véhicule
+    </a>
+    <a routerLink="/admin/vehicle/report" routerLinkActive="active" class="nav-link">
+      <i class="fas fa-file-alt"></i> Gestion Rapport
+    </a>
 
-      <div class="ms-auto d-flex align-items-center">
-        <div class="year-badge me-3">
-          <span class="badge bg-dark">Salut</span>
-        </div>
-        <button class="btn btn-outline-secondary btn-sm me-3">
-          {{username}}, Vous etes {{authService.getUserData()?.role}}
-        </button>
+    <div class="nav-section" *ngIf="role=='ADMIN'">
+      <div class="nav-section-title">Paramètres</div>
+      <a routerLink="/admin/setting" routerLinkActive="active" class="nav-link">
+        <i class="fas fa-cog"></i> Configurations
+      </a>
+      <a routerLink="/admin/user" routerLinkActive="active" class="nav-link">
+        <i class="fas fa-users"></i> Utilisateurs
+      </a>
+    </div>
+  </nav>
+
+
+  <div class="sidebar-bottom">
+    <button class="logout-btn" (click)="logout()">
+      <i class="fas fa-sign-out-alt"></i> Déconnexion
+    </button>
+  </div>
+</div>
+
+<div class="main-content">
+  <div class="top-bar">
+    <div class="user-profile">
+      <img src="https://media.licdn.com/dms/image/v2/D4E03AQFdiltw4AUFAw/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1712322410914?e=2147483647&v=beta&t=sFehX65DktCur6L2Jx1LA5LFqayfOFHRGWdtdFQwQ4I" alt="Profile">
+      <div class="user-info">
+        <h6>{{username}}</h6>
+        <p>{{role}}</p>
       </div>
-    </nav>
-
-    <!-- Dashboard Content -->
-    <div class="dashboard-content p-4">
-      <router-outlet></router-outlet>
     </div>
   </div>
+  <router-outlet></router-outlet>
 </div>

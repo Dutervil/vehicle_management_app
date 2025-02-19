@@ -8,73 +8,81 @@
   <ng-container *ngIf="vehicles.length > 0">
     <div class="table-container" *ngIf="!isLoading">
       <div class="d-flex justify-content-between align-items-center" >
-        <div>
-          <mat-form-field appearance="fill">
+        <div class="w-100">
+          <mat-form-field appearance="fill" style="width: 50%">
             <mat-label>Rechercher</mat-label>
             <input matInput (keyup)="applyFilter($event)" >
           </mat-form-field>
         </div>
-        <div>
-          <button (click)="addNewVehicle()" style="background-color: #2a3746; color: white"     mat-raised-button> Creer Nouveau Vehicule</button>
+        <div style="width: 50%" class="d-flex justify-content-end">
+          <button (click)="addNewVehicle()" style="background-color: #1a1b29; color: white"     mat-raised-button> Creer Nouveau Vehicule</button>
         </div>
       </div>
 
       <table mat-table [dataSource]="filteredVehicles">
         <ng-container matColumnDef="zlCode">
-          <th mat-header-cell *matHeaderCellDef> ZL Code </th>
+          <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> ZL Code </th>
           <td mat-cell *matCellDef="let vehicle"> {{ vehicle.zlCode }} </td>
         </ng-container>
 
         <ng-container matColumnDef="site">
-          <th mat-header-cell *matHeaderCellDef> Site </th>
+          <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Site </th>
           <td mat-cell *matCellDef="let vehicle"> {{ vehicle.site }} </td>
         </ng-container>
 
         <ng-container matColumnDef="owner">
-          <th mat-header-cell *matHeaderCellDef> Proprietaire </th>
+          <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Proprietaire </th>
           <td mat-cell *matCellDef="let vehicle"> {{ vehicle.owner }} </td>
         </ng-container>
 
         <ng-container matColumnDef="category">
-          <th mat-header-cell *matHeaderCellDef> Catégorie </th>
+          <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Catégorie </th>
           <td mat-cell *matCellDef="let vehicle"> {{ vehicle.category }} </td>
         </ng-container>
 
         <ng-container matColumnDef="plate">
-          <th mat-header-cell *matHeaderCellDef> Plaque </th>
+          <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Plaque </th>
           <td mat-cell *matCellDef="let vehicle"> {{ vehicle.plate }} </td>
         </ng-container>
 
         <ng-container matColumnDef="brand">
-          <th mat-header-cell *matHeaderCellDef> Marque </th>
+          <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Marque </th>
           <td mat-cell *matCellDef="let vehicle"> {{ vehicle.brand }} </td>
         </ng-container>
         <ng-container matColumnDef="model">
-          <th mat-header-cell *matHeaderCellDef> Année </th>
+          <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Année </th>
           <td mat-cell *matCellDef="let vehicle"> {{ vehicle.model }} </td>
         </ng-container>
 
         <ng-container matColumnDef="year">
-          <th mat-header-cell *matHeaderCellDef> Année de sa première utilisation
+          <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Année de sa première utilisation
           </th>
           <td mat-cell *matCellDef="let vehicle"> {{ vehicle.year }} </td>
         </ng-container>
 
         <ng-container matColumnDef="firstUseYear">
-          <th mat-header-cell *matHeaderCellDef> Modele </th>
+          <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Modele </th>
           <td mat-cell *matCellDef="let vehicle"> {{ vehicle.firstUseYear }} </td>
         </ng-container>
 
         <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Actions </th>
           <td mat-cell *matCellDef="let vehicle">
 
-            <button mat-raised-button  (click)="editVehicle(vehicle)">
-              <i class="bi bi-pencil-fill"></i>
-            </button>
-            <button mat-raised-button  (click)="deleteVehicle(vehicle)">
-              <i class="bi bi-trash"></i>
-            </button>
+           <div class="d-flex gap-2">
+             <button mat-raised-button  (click)="editVehicle(vehicle)">
+               <i class="bi bi-pencil-fill"></i>
+             </button>
+             <button mat-raised-button  color="accent" (click)="deleteVehicle(vehicle)">
+               <i class="bi bi-trash"></i>
+             </button>
+
+             <button mat-raised-button  color="primary" (click)="viewVehicle(vehicle)">
+
+               <i class="bi bi-eye-fill"></i>
+             </button>
+
+           </div>
           </td>
         </ng-container>
 
@@ -90,9 +98,13 @@
     </div>
   </ng-container>
 
-<ng-container *ngIf="vehicles.length ==0 && !isLoading">
-  <div class="d-flex justify-content-center align-items-center">
-     <h2 class="text-body">Erreur lors du chargement des donnees</h2>
+<ng-container *ngIf="vehicles.length ==0 ">
+  <div class="d-flex justify-content-center align-items-center flex-column">
+
+    <h2 class="text-body">Pas de Data</h2>
+
+    <button (click)="addNewVehicle()" style="background-color: #1a1b29; color: white"     mat-raised-button> Creer Nouveau Vehicule</button>
+
   </div>
 </ng-container>
   </div>

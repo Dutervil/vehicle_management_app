@@ -1,0 +1,37 @@
+<div class="container p-5">
+  <div class="card p-3">
+    <div class="header" style="border-bottom: 2px solid #2a3746">
+      <div class="card-title">
+        <h6 class="text-body">{{ title }}</h6>
+      </div>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="m-3">
+      <!-- First Row -->
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Entrer le taux du jour</mat-label>
+            <input matInput type="text" formControlName="rate" />
+          </mat-form-field>
+
+          <!-- Validation messages for startKm -->
+          <div *ngIf="form.get('rate')?.hasError('invalidCurrency') && form.get('rate')?.touched">
+            Veuillez saisir une monnaie valide (par exemple, 145.564).
+          </div>
+          <div *ngIf="form.get('rate')?.hasError('required') && form.get('rate')?.touched">
+            Le taux est requis.
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit and Cancel Buttons -->
+      <div class="col-md-4">
+        <div class="d-flex justify-content-between gap-2 align-items-center">
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Enregistrer</button>
+          <button mat-raised-button type="button" (click)="onCancel()">Annuler</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

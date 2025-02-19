@@ -18,8 +18,8 @@
                    [matAutocomplete]="auto"
                    placeholder="Rechercher un véhicule">
 
-            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectVehicle($event.option.value)">
-              <mat-option *ngFor="let vehicle of filteredVehicles | async" [value]="vehicle">
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectVehicle($event.option.value)" >
+              <mat-option  *ngFor="let vehicle of filteredVehicles | async" [value]="vehicle">
                 <div class="d-flex justify-content-sm-between align-items-center gap-2">
                   <span><b>Plaque:</b> {{ vehicle.plate }}</span><br>
                   <span><b>Modèle:</b> {{ vehicle.model }}</span><br>
@@ -177,7 +177,6 @@
             <mat-label>Monnaie</mat-label>
             <mat-select formControlName="currency">
               <mat-option value="HTG">HTG</mat-option>
-              <mat-option value="USA">USD</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

@@ -25,7 +25,7 @@ export class LoginComponent  implements OnInit{
 
   loginForm: FormGroup;
   showPassword: boolean = false;
-
+  isLoading = false;
 
   constructor(private authService: AuthService, private router: Router,private fb: FormBuilder,private toastr: ToastrService) {
     this.loginForm = this.fb.group({
@@ -34,7 +34,7 @@ export class LoginComponent  implements OnInit{
     });
   }
   ngOnInit(): void {
-    if(this.authService.getUserData()){
+    if(this.authService.isAuthenticated){
       this.router.navigate(['/admin']);
     }
   }
@@ -52,22 +52,36 @@ export class LoginComponent  implements OnInit{
 
 
   onSubmit() {
+
+    if (this.loginForm.invalid) return;
+    this.isLoading = true;
     this.authService.login({ email: this.loginForm.value.email, password: this.loginForm.value.password }).subscribe({
       next: (response) => {
-        const user: User = response.data;
+        localStorage.setItem('token', response.data.token);
+        this.authService.setCurrentUser(response.data.user);
         this.toastr.success(response.message,"Success Message")
 
-        this.authService.setUserData(response.data);
-        const userRole :string=response?.data?.role.toLowerCase()
-          this.router.navigate(['/admin']);
+        if(response.data.user.role=="REPORTER"){
+          this.router.navigate(['/admin/vehicle/report']);
+
+        }else{
+          this.router.navigate(['admin/overview']);
+
+        }
+
+        this.isLoading = false;
       },
       error: (error) => {
 
-        const errorMessage = error?.error?.message || 'An unexpected error occurred';
+        const errorMessage = error?.error?.message || 'Veuillez demarrer votre serveur';
         console.error('Login failed', errorMessage);
-        this.toastr.error(errorMessage,"Error Message")
+        this.toastr.error(errorMessage,"Probleme de connection")
+        this.isLoading = false;
 
       },
+      complete: () => {
+        this.isLoading = false;
+      }
     });
   }
 

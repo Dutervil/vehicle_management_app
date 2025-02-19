@@ -14,68 +14,113 @@
     <ng-container *ngIf="!isLoading && hasData ">
       <div class="table-container" *ngIf="!isLoading">
         <div class="d-flex justify-content-between align-items-center" >
-          <div>
-            <mat-form-field appearance="fill">
+          <div style="width: 50%">
+            <mat-form-field appearance="fill" class="w-100">
               <mat-label>Rechercher</mat-label>
               <input matInput (keyup)="applyFilter($event)" >
             </mat-form-field>
           </div>
-          <div>
-            <button (click)="openForm()" style="background-color: #2a3746; color: white"     mat-raised-button> Nouveau Rapport</button>
+          <div style="width: 50%" class="d-flex justify-content-end">
+            <button (click)="openForm()" style="background-color: #1a1b29; color: white"     mat-raised-button> Nouveau Rapport</button>
           </div>
         </div>
 
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
 
-          <!-- Plaque -->
-          <ng-container matColumnDef="plate">
-            <th mat-header-cell *matHeaderCellDef> Plaque</th>
-            <td mat-cell *matCellDef="let element"> {{ element.vehicle.plate }}</td>
+          <ng-container matColumnDef="vehicule">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Information du Vehicule</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-chip-set aria-label="Fish selection">
+                <mat-chip>{{element.vehicle.plate}}</mat-chip>
+                <mat-chip>{{element.vehicle.brand}}</mat-chip>
+              </mat-chip-set>
+            </td>
           </ng-container>
 
-          <!-- Marque -->
-          <ng-container matColumnDef="brand">
-            <th mat-header-cell *matHeaderCellDef> Marque</th>
-            <td mat-cell *matCellDef="let element"> {{ element.vehicle.brand }}</td>
+          <ng-container matColumnDef="startKm">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Debut Km</th>
+            <td mat-cell *matCellDef="let element"> {{ element.startKm }} </td>
+          </ng-container>
+          <ng-container matColumnDef="endKm">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Fin Km</th>
+            <td mat-cell *matCellDef="let element"> {{ element.endKm }} </td>
           </ng-container>
 
-          <!-- Modèle -->
-          <ng-container matColumnDef="model">
-            <th mat-header-cell *matHeaderCellDef> Modèle</th>
-            <td mat-cell *matCellDef="let element"> {{ element.vehicle.model }}</td>
-          </ng-container>
-
-          <!-- Kilométrage Total -->
           <ng-container matColumnDef="totalKm">
-            <th mat-header-cell *matHeaderCellDef> Km Total</th>
-            <td mat-cell *matCellDef="let element"> {{ element.totalKm }} km</td>
+            <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Km Total</th>
+            <td mat-cell *matCellDef="let element"> {{ element.totalKm }} </td>
           </ng-container>
 
-          <!-- Type de Carburant -->
-          <ng-container matColumnDef="fuelType">
-            <th mat-header-cell *matHeaderCellDef> Carburant</th>
-            <td mat-cell *matCellDef="let element"> {{ element.fuelType }}</td>
-          </ng-container>
-
-          <!-- Coût total du carburant -->
-          <ng-container matColumnDef="totalFuelCost">
-            <th mat-header-cell *matHeaderCellDef> Coût Carburant</th>
-            <td mat-cell *matCellDef="let element"> {{ element.totalFuelCost }} </td>
-          </ng-container>
-
-          <!-- Coût par km -->
           <ng-container matColumnDef="costPerKm">
-            <th mat-header-cell *matHeaderCellDef> Coût/Km</th>
+            <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Coût/Km</th>
             <td mat-cell *matCellDef="let element"> {{ element.costPerKm }} </td>
           </ng-container>
 
-          <!-- Date du Rapport -->
-          <ng-container matColumnDef="reportDate">
-            <th mat-header-cell *matHeaderCellDef> Date Rapport</th>
-            <td mat-cell *matCellDef="let element"> {{ element.reportDate | date:'yyyy-MM-dd' }}</td>
+
+          <ng-container matColumnDef="fuelType">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Carburant</th>
+            <td mat-cell *matCellDef="let element"> {{ element.fuelType }}</td>
           </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <ng-container matColumnDef="fuelQuantityGallons">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray">  Gallons</th>
+            <td mat-cell *matCellDef="let element"> {{ element.fuelQuantityGallons }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="pricePerGallon">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Prix</th>
+            <td mat-cell *matCellDef="let element"> {{ element.pricePerGallon }}</td>
+          </ng-container>
+
+
+
+          <ng-container matColumnDef="totalFuelCost">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Coût Carburant</th>
+            <td mat-cell *matCellDef="let element"> {{ element.totalFuelCost | number }} </td>
+          </ng-container>
+
+
+
+
+          <ng-container matColumnDef="consumptionPer100Km">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Coût/ 100Km</th>
+            <td mat-cell *matCellDef="let element"> {{ element.consumptionPer100Km |number }} </td>
+          </ng-container>
+
+
+
+          <ng-container matColumnDef="totalCost">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray">  Total</th>
+            <td mat-cell *matCellDef="let element"> {{ element.totalCost | number }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="estimatedCostHTG">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray">  HTG</th>
+            <td mat-cell *matCellDef="let element"> {{ element.estimatedCostHTG | number }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="estimatedCostUSD">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray">   USD</th>
+            <td mat-cell *matCellDef="let element"> {{ element.estimatedCostUSD | number }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Action">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #1a1b29; color: gray"> Action</th>
+            <td mat-cell *matCellDef="let element">
+
+             <div class="d-flex gap-2">
+               <button mat-raised-button   (click)="editReport(element)">
+                 <i class="bi bi-pencil-fill " style="cursor: pointer"></i>
+               </button>
+
+               <button mat-raised-button color="accent" (click)="deleteReport(element)">
+                 <i  class="bi bi-trash" style="cursor: pointer"></i>
+               </button>
+             </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns" style="background-color: #1a1b29; color: gray"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 

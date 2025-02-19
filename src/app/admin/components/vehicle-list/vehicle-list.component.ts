@@ -15,6 +15,7 @@ import {VehicleCreateComponent} from "../vehicle-create/vehicle-create.component
 import {ToastrService} from "ngx-toastr";
 import {ConfirmDialogComponent} from "../../../../components/confirm-dialog/confirm-dialog.component";
 import {Subscription} from "rxjs";
+import {MatIconModule} from "@angular/material/icon";
 
 
 @Component({
@@ -27,6 +28,7 @@ import {Subscription} from "rxjs";
     MatTableModule,
     MatPaginatorModule,
     MatInputModule,
+    MatIconModule,
     MatFormFieldModule,],
     templateUrl: './vehicle-list.component.html',
     styleUrl: './vehicle-list.component.css'
@@ -137,5 +139,9 @@ export class VehicleListComponent implements OnInit,OnDestroy {
         console.log('Action annulée');
       }
     });
+  }
+
+  viewVehicle(vehicle:Vehicle) {
+    this.router.navigate(['admin/vehicle/view', vehicle.id]);
   }
 }

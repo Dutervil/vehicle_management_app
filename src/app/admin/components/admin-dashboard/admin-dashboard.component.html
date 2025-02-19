@@ -1,155 +1,127 @@
-<!-- Dashboard Content -->
-<div class="dashboard-content p-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="mb-0">Welcome, Codewave</h4>
+
+  <div class="row g-4" *ngIf="role==='ADMIN'">
+    <!-- Activities -->
+    <div class="col-md-4">
+      <div class="stat-card">
+        <div class="stat-icon bg-activities text-white">
+          <i class="fas fa-gas-pump"></i>
+        </div>
+        <div class="stat-text">
+          <h2 class="mb-0">{{stats.totalGallons}}</h2>
+          <h6 class="mb-0">GALLONS</h6>
+          <small class="text-muted">Nombre total de gallons d'essence</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Participants -->
+    <div class="col-md-4">
+      <div class="stat-card">
+        <div class="stat-icon bg-participants text-white">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-text">
+          <h2 class="mb-0">{{stats.totalVehicles}}</h2>
+          <h6 class="mb-0">VÉHICULES</h6>
+          <small class="text-muted">Nombre total de véhicules</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Completed Activities -->
+    <div class="col-md-4">
+      <div class="stat-card">
+        <div class="stat-icon bg-completed text-white">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="stat-text">
+          <h2 class="mb-0">{{stats.totalInsuranceCost| number}}</h2>
+          <h6 class="mb-0">ASSURANCE</h6>
+          <small class="text-muted">Montant total des assurances</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upcoming Activities -->
+    <div class="col-md-4">
+      <div class="stat-card">
+        <div class="stat-icon bg-upcoming text-white">
+          <i class="fas fa-wrench"></i>
+        </div>
+        <div class="stat-text">
+          <h2 class="mb-0">{{stats.totalRepairCost| number}}</h2>
+          <h6 class="mb-0">RÉPARATION</h6>
+          <small class="text-muted">Montant total des réparations</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Postponed Activities -->
+    <div class="col-md-4">
+      <div class="stat-card">
+        <div class="stat-icon bg-postponed text-white">
+          <i class="fas fa-tools"></i>
+        </div>
+        <div class="stat-text">
+          <h2 class="mb-0">{{stats.totalMaintenanceCost| number}}</h2>
+          <h6 class="mb-0">MAINTENANCE</h6>
+          <small class="text-muted">Coût total de la maintenance</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cancelled Activities -->
+    <div class="col-md-4">
+      <div class="stat-card">
+        <div class="stat-icon bg-cancelled text-white">
+          <i class="fas fa-dollar-sign"></i>
+        </div>
+        <div class="stat-text">
+          <h2 class="mb-0">{{stats.totalRentalCost| number}}</h2>
+          <h6 class="mb-0">LOCATION</h6>
+          <small class="text-muted">Coût total de la location</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transaction Graph -->
+    <div class="col-md-8">
+      <div class="stat-card">
+        <h5 class="mb-4">Coût Totol Par Mois</h5>
+        <canvas id="barChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Latest Records -->
+    <div class="col-md-4">
+      <div class="stat-card">
+        <div class="card p-3">
+          <h5 class="mb-3 text-center">Coût Total par Type de Carburant</h5>
+          <canvas id="fuelTypeChart" style="height: 300px; width: 100%;"></canvas>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+  <div class="container-fluid" *ngIf="role==='ADMIN'">
+    <div class="stat-card-twelve" style="height: 400px; width: 100%;">
+      <h5 class="mb-4">Coût Total sur 12 Mois</h5>
+      <canvas id="barChartTwelve"></canvas>
+    </div>
+  </div>
+
+
+  <div class="container-fluid" *ngIf="role==='REPORTER'">
+    <div class="container d-flex justify-content-center align-items-center card " style="border-bottom: 2px solid red">
+      <div class="text-center card-body ">
+        <h1 class="display-4 text-danger">Accès refusé</h1>
+        <p class="lead">vous n'avez pas la permission de voir cette page</p>
+        <p class="lead">Cliquez sur Gestion des Rapports pour ajouter des rapports</p>
+      </div>
+    </div>
 
   </div>
 
-  <div class="row">
-    <!-- Main Column -->
-    <div class="col-lg-12">
-      <!-- Stats Cards -->
-      <div class="row g-4 mb-4">
-        <div class="col-12 col-sm-3">
-          <div class="card border-0 shadow-sm h-100" style="background-color: #E8EEF9;">
-            <div class="card-body mt-4">
-              <div class="d-flex align-items-center mb-3">
-                <div class="stats-icon bg-primary bg-opacity-10 rounded p-3">
-                  <i class="bi bi-car-front-fill text-primary" style="color: #896606;"></i>
-                </div>
-                <div class="ms-3">
-                  <h6 class="card-subtitle text-muted mb-1">Total Vehicules</h6>
-                </div>
-              </div>
-              <div class="d-flex align-items-baseline">
-                <h2 class="card-title mb-0">28</h2>
-                <a href="#" class="ms-auto text-muted small">Voir Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-sm-3">
-          <div class="card border-0 shadow-sm h-100" style="background-color: #FFF4E5;">
-            <div class="card-body mt-4">
-              <div class="d-flex align-items-center mb-3">
-                <div class="stats-icon rounded p-3" style="background-color: #f3c89c;">
-                  <i class="bi bi-caret-down" style="color: #cab797;"></i>
-                </div>
-                <div class="ms-3">
-                  <h6 class="card-subtitle text-muted mb-1">Total  Assurance </h6>
-                </div>
-              </div>
-              <div class="d-flex align-items-baseline">
-                <h2 class="card-title mb-0">278,76.00 HTG</h2>
-                <a href="#" class="ms-auto text-muted small">Voir Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="col-12 col-sm-3 ">
-          <div class="card border-0 shadow-sm h-100" style="background-color: #FFEEF0;">
-            <div class="card-body mt-4 ">
-              <div class="d-flex align-items-center mb-3">
-                <div class="stats-icon bg-gradient bg-opacity-10 rounded p-3" style="background-color: #FFE2E5;">
-                  <i class="bi bi-basket text-danger" style="color: #21bc9f;"></i>
-                </div>
-                <div class="ms-3">
-                  <h6 class="card-subtitle text-muted mb-1">Total Essences (Galon)</h6>
-                </div>
-              </div>
-              <div class="d-flex align-items-baseline">
-                <h2 class="card-title mb-0">17035 Gollons</h2>
-                <a href="#" class="ms-auto text-muted small">Voir Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-sm-3">
-          <div class="card border-0 shadow-sm h-100" style="background-color: #E6F3F0;">
-            <div class="card-body mt-4">
-              <div class="d-flex align-items-center mb-3">
-                <div class="stats-icon rounded p-3" style="background-color: #D7EAE5;">
-                  <i class="bi bi-currency-dollar" style="color: #4CAF50;"></i>
-                </div>
-                <div class="ms-3">
-                  <h6 class="card-subtitle text-muted mb-1">Total Depences</h6>
-                </div>
-              </div>
-              <div class="d-flex align-items-baseline">
-                <h2 class="card-title mb-0">289,000.00 HTG</h2>
-                <a href="#" class="ms-auto text-muted small">Voir Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-
-    </div>
-    <!-- Appointments Chart -->
-    <div class="row">
-      <div class="col-12 col-sm-8">
-        <div class="card border-0 shadow-sm mb-4">
-          <div class="card-body">
-            <h5 class="card-title mb-4">Statistic de  depences par Vehicule</h5>
-            <div class="d-flex align-items-center mb-3">
-              <div class="me-4">
-                <i class="bi bi-circle-fill text-dark me-2"></i>
-                <span>Vehicule</span>
-              </div>
-              <div>
-                <i class="bi bi-circle-fill text-primary me-2"></i>
-                <span>Montant</span>
-              </div>
-            </div>
-            <canvas #appointmentChart></canvas>
-          </div>
-        </div>
-
-
-      </div>
-      <div class="col-lg-4">
-        <!-- Available Doctors -->
-        <div class="card border-0 shadow-sm mb-4">
-          <div class="card-body">
-            <h5 class="card-title mb-4">5 Dernier rapport</h5>
-            <div class="doctor-item d-flex align-items-center p-3 bg-light rounded mb-3">
-              <div class="avatar me-3">
-                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
-                     style="width: 48px; height: 48px;">
-                  V1
-                </div>
-              </div>
-               <div>
-                <h6 class="mb-1">Vehicule 1</h6>
-                <p class="mb-0 text-muted small">Toyota</p>
-                <small class="text-muted">5 gollons Essences: 30/1/2025</small>
-               </div>
-            </div>
-
-            <div class="doctor-item d-flex align-items-center p-3 bg-light rounded mb-3">
-              <div class="avatar me-3">
-                <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center"
-                     style="width: 48px; height: 48px;">
-                  V2
-                </div>
-              </div>
-              <div>
-                <h6 class="mb-1">Vehicule 2</h6>
-                <p class="mb-0 text-muted small">Landcruiser</p>
-                <small class="text-muted">4 gollons Essences: 30/1/2025</small>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-
-    </div>
-    <!-- Right Sidebar -->
-
-  </div>
-</div>
